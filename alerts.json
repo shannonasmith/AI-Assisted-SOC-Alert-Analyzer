@@ -1,0 +1,26 @@
+[
+  {
+    "id": "ALERT-001",
+    "event": "Failed login attempts",
+    "source_ip": "192.168.1.45",
+    "target_user": "admin",
+    "attempts": 15,
+    "time_window": "2 minutes"
+  },
+  {
+    "id": "ALERT-002",
+    "event": "Port scan detected",
+    "source_ip": "10.0.0.88",
+    "target_user": "N/A",
+    "attempts": 50,
+    "time_window": "1 minute"
+  },
+  {
+    "id": "ALERT-003",
+    "event": "Single failed login",
+    "source_ip": "172.16.0.12",
+    "target_user": "jsmith",
+    "attempts": 1,
+    "time_window": "30 seconds"
+  }
+]
