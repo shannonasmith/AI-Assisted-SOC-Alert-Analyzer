@@ -2,27 +2,33 @@
 
 ## 📌 Overview
 
-This project simulates an **AI-assisted Security Operations Center (SOC) workflow** that processes security alerts, performs triage, maps activity to MITRE ATT&CK techniques, and generates incident analysis with recommended response actions.
+This project simulates a **realistic SOC (Security Operations Center) workflow** where alerts are ingested, triaged, enriched, and analyzed using both **rule-based logic** and **AI-assisted reasoning**.
 
-The goal is to demonstrate how **AI can augment SOC analysts** by transforming raw alert data into structured, decision-ready insights.
+Instead of relying solely on automation or AI, this project demonstrates how the two can work together to produce **structured, actionable security insights**.
+
+The goal was to build something that reflects how a modern SOC analyst actually works:
+- Investigate alerts
+- Add context
+- Validate severity
+- Recommend response actions
 
 ---
 
 ## 🎯 Objectives
 
 - Simulate real-world SOC alert triage
-- Combine **rule-based detection** with **AI-assisted analysis**
+- Combine **deterministic detection logic** with **AI-assisted analysis**
 - Map activity to **MITRE ATT&CK techniques**
 - Demonstrate progression toward **agentic AI workflows**
-- Build a reusable, modular Python-based analysis tool
+- Build a modular, reusable Python-based analysis tool
 
 ---
 
 ## ⚙️ Features
 
 ### 🔍 Alert Processing
-- Ingests alerts from a JSON file
-- Supports multiple incident types:
+- Reads alerts from a JSON file
+- Supports multiple event types:
   - Brute force attempts
   - Port scans
   - Authentication anomalies
@@ -33,25 +39,25 @@ The goal is to demonstrate how **AI can augment SOC analysts** by transforming r
 - MITRE ATT&CK mapping
 
 ### 📊 Investigation Context
-- Timeline reconstruction for each alert
+- Timeline reconstruction
 - Alert ID tracking
 - Source IP correlation
 
 ### 🤖 AI-Assisted Analysis
-- Uses a generative AI model (Gemini) to:
+- Uses Gemini to:
   - Summarize incidents
   - Validate severity
-  - Suggest MITRE techniques
+  - Suggest MITRE mappings
   - Recommend response actions
 
 ### ⚡ Decision + Response Layer
-- Action recommendations based on severity
-- Simulated response execution:
-  - IP blocking
-  - Host isolation
-  - Monitoring actions
+- Generates recommended actions based on severity
+- Simulates response actions:
+  - Monitoring
+  - Isolation
+  - Investigation steps
 
-### 📈 Batch SOC Summary
+### 📈 Batch Summary
 - Total alerts processed
 - Severity distribution
 - MITRE ATT&CK coverage
@@ -77,8 +83,58 @@ AI Analysis (Context + Recommendations)
 Batch Summary
 ```
 
-📸 **Architecture Diagram (optional)**  
-![Architecture](screenshots/architecture.png)
+---
+
+## 📸 Project Walkthrough
+
+### 🔴 1. Reconnaissance (Attack Simulation)
+
+![Nmap Scan](screenshots/nmap_scan.png)
+
+Simulated reconnaissance using Nmap across 1000 TCP ports.  
+The scan identified an exposed DNS service (port 53), demonstrating how attackers discover available services and potential entry points.
+
+---
+
+### ⚙️ 2. Rule-Based SOC Triage
+
+![SOC Analyzer](screenshots/soc_analyzer_output.png)
+
+Initial triage using deterministic logic:
+- Severity classification
+- MITRE ATT&CK mapping
+- Confidence scoring
+
+---
+
+### 🤖 3. AI-Assisted Analysis
+
+![AI Analysis](screenshots/ai_analysis_output.png)
+
+AI-generated analysis expands on the alert by:
+- Providing a structured summary
+- Validating or adjusting severity
+- Suggesting additional MITRE techniques
+- Recommending response actions
+
+---
+
+### 🧪 4. Development & Troubleshooting
+
+![Debugging](screenshots/debugging_example.png)
+
+During development, multiple real-world issues were encountered:
+- API key configuration errors
+- Dependency conflicts in Kali Linux
+- Model compatibility issues
+
+---
+
+### 🛠️ 5. Development Workflow (Optional)
+
+![Workflow](screenshots/development_workflow.png)
+
+Example of editing and executing the analyzer within the lab environment.
 
 ---
 
@@ -88,10 +144,12 @@ Batch Summary
 mini-ai-soc/
 ├── soc_analyzer.py
 ├── alerts.json
-├── output.log (optional)
 ├── screenshots/
-│   ├── output.png
-│   └── architecture.png
+│   ├── nmap_scan.png
+│   ├── soc_analyzer_output.png
+│   ├── ai_analysis_output.png
+│   ├── debugging_example.png
+│   └── development_workflow.png
 └── README.md
 ```
 
@@ -106,7 +164,7 @@ git clone https://github.com/YOUR_USERNAME/mini-ai-soc.git
 cd mini-ai-soc
 ```
 
-### 2. Create virtual environment
+### 2. Create a virtual environment
 
 ```bash
 python3 -m venv venv
@@ -144,14 +202,6 @@ python soc_analyzer.py alerts.json
     "target_user": "admin",
     "attempts": 15,
     "time_window": "2 minutes"
-  },
-  {
-    "id": "ALERT-002",
-    "event": "Port scan detected",
-    "source_ip": "10.0.0.88",
-    "target_user": "N/A",
-    "attempts": 50,
-    "time_window": "1 minute"
   }
 ]
 ```
@@ -161,71 +211,90 @@ python soc_analyzer.py alerts.json
 ## 📊 Example Output
 
 ```text
-Processing Alert ID: ALERT-001
-
 === PRE-AI ANALYSIS ===
 Calculated Severity: Medium
 MITRE Mapping: T1110 - Brute Force
 Confidence: Moderate Confidence
 
-[ACTION] Recommend investigating source IP 192.168.1.45
-[SIMULATION] Monitoring source IP 192.168.1.45
-
-[Timeline Reconstruction]
-- Initial Activity: Multiple failed logins detected
-- Source: 192.168.1.45
-- Target: admin
-- Duration: 2 minutes
-- Behavior: Repeated authentication attempts indicating possible brute force
-
 [AI Analysis]
 - Summary
-- Severity adjustment
-- Recommendations
+- Severity validation
+- Recommended actions
 ```
-
-📸 **Terminal Output Example**  
-![Terminal Output](screenshots/output.png)
 
 ---
 
-## 🧠 Key Concepts Demonstrated
+## 🧾 Sample Logic (Severity Scoring)
 
-- SOC alert triage workflows  
-- MITRE ATT&CK mapping  
-- AI-assisted incident analysis  
-- Separation of deterministic logic and AI reasoning  
-- Simulated SOAR-style response actions  
+```python
+def calculate_severity(alert):
+    if alert["attempts"] > 20:
+        return "High"
+    elif alert["attempts"] >= 10:
+        return "Medium"
+    return "Low"
+```
+
+---
+
+## 🔧 Troubleshooting
+
+### ❌ "externally-managed-environment" error (Kali)
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+---
+
+### ❌ API Key Not Found
+```bash
+export GEMINI_API_KEY="your_api_key_here"
+```
+
+---
+
+### ❌ Model Not Found / 404 Errors
+- Verify model name (e.g., `gemini-1.5-flash`)
+- Confirm API access is enabled
+
+---
+
+### ❌ Script Not Found
+```bash
+cd ~/mini-ai-soc
+ls
+```
 
 ---
 
 ## 🔐 Security Perspective
 
-This project demonstrates how modern SOCs can:
+This project highlights how modern SOC teams can:
 
 - Reduce alert fatigue through automation  
-- Improve investigation speed using AI  
-- Correlate alerts across multiple signals  
-- Transition toward autonomous response systems  
+- Improve investigation speed with AI assistance  
+- Correlate events across multiple signals  
+- Move toward semi-autonomous response workflows  
 
 ---
 
 ## 🚧 Future Improvements
 
-- Integrate real SIEM data (Splunk, ELK)  
-- Connect to MITRE ATT&CK STIX dataset  
-- Add real-time log ingestion  
-- Implement automated SOAR playbooks  
-- Export ATT&CK coverage to Navigator  
+- Integrate with SIEM tools (Splunk, ELK)
+- Pull live MITRE ATT&CK data via STIX
+- Add real-time log ingestion
+- Implement automated SOAR playbooks
+- Build a web dashboard for alert visualization
 
 ---
 
 ## 💡 Lessons Learned
 
-- Combining rule-based logic with AI improves reliability  
-- AI should assist—not replace—security decision-making  
-- Context (timeline, source, behavior) is critical in incident response  
-- API integration and model selection require careful validation  
+- AI works best when paired with structured logic  
+- Context (timeline, source, behavior) is critical in investigations  
+- Debugging environment issues is part of real-world security work  
+- Even a single open port can provide meaningful attack surface insight  
 
 ---
 
