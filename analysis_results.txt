@@ -1,0 +1,207 @@
+########################################
+Processing Alert ID: ALERT-001
+########################################
+
+=== PRE-AI ANALYSIS ===
+Calculated Severity: Medium
+MITRE Mapping: T1110 - Brute Force
+Confidence: Moderate Confidence
+[ACTION] Recommend investigating source IP 192.168.1.45 and monitoring target account admin.
+[SIMULATION] Monitoring source IP 192.168.1.45 and reviewing activity for account admin.
+
+[Timeline Reconstruction]
+- Initial Activity: Multiple failed logins detected
+- Source: 192.168.1.45
+- Target: admin
+- Duration: 2 minutes
+- Behavior: Repeated authentication attempts indicating possible brute force
+
+=======================
+
+As a SOC Analyst, I have analyzed the alert. Here is the assessment:
+
+### **Summary**
+An internal host (**192.168.1.45**) has triggered a brute-force alert by making **15 failed login attempts** against the **'admin'** account within a brief **2-minute** window. The rapid succession of failures and the targeting of a high-privilege, generic account suggest either a malicious internal actor, a compromised host attempting lateral movement, or a misconfigured automated service.
+
+---
+
+### **Severity: Medium (Confirmed)**
+I am confirming the **Medium** severity, with a caveat that it could be upgraded to **High** depending on the criticality of the target system.
+*   **Why Medium:** The volume of attempts (15) is relatively low and was likely caught by lockout policies before succeeding.
+*   **Why it borders on High:** The source is internal, meaning a threat actor may already have a foothold in the network, and the target is a high-value administrative account.
+
+---
+
+### **MITRE ATT&CK Mapping**
+*   **Primary Technique:** **[T1110.001 - Brute Force: Password Guessing](https://attack.mitre.org/techniques/T1110/001/)**
+*   **Secondary Technique:** **[T1021 - Remote Services](https://attack.mitre.org/techniques/T1021/)** (If the attempts were made via SSH, RDP, or SMB).
+*   **Tactics:** **Credential Access** and **Lateral Movement**.
+
+---
+
+### **Why it’s Suspicious**
+1.  **Velocity:** 15 attempts in 120 seconds exceeds the typical behavior of a user who simply forgot their password. It suggests the use of a script or automated tool.
+2.  **Target Account:** The 'admin' account is a generic, high-privilege target. Attackers frequently target this account because it often exists by default and provides full control over the system.
+3.  **Internal Source:** Since the source IP is internal (192.168.1.0/24 range), this indicates that the threat is already inside the perimeter. This is a classic sign of **lateral movement**—where an attacker moves from a compromised workstation to a server or domain controller.
+4.  **No Success:** The lack of a successful login following the failures suggests the "guessing" phase of an attack.
+
+---
+
+### **Recommended Actions**
+
+#### **1. Immediate Containment**
+*   **Isolate Source:** Temporarily isolate the source host (192.168.1.45) from the network to prevent further brute-force attempts or potential malware spreading.
+*   **Account Lockout:** Verify if the 'admin' account has been automatically locked by existing security policies to prevent further attempts.
+
+#### **2. Investigation**
+*   **Identify the Host:** Determine what device is assigned to 192.168.1.45 (e.g., a workstation, printer, or server) via DHCP logs or CMDB.
+*   **Review Logs:** Check the source host (192.168.1.45) for other suspicious activity (e.g., unusual outbound connections, execution of PowerShell, or Mimikatz).
+*   **Check Success:** Scan logs for any *successful* logins for the 'admin' account or other accounts from that same source IP within the last 24 hours.
+
+#### **3. Eradication & Remediation**
+*   **Password Reset:** Force a password change for the 'admin' account immediately.
+*   **Scan for Malware:** Run a full antivirus/EDR scan on the source machine (192.168.1.45) to check for credential-harvesting bots.
+*   **Check Configurations:** Ensure the attempts weren't caused by a service account or script with an expired password.
+
+#### **4. Long-term Hardening**
+*   **MFA:** Ensure Multi-Factor Authentication (MFA) is enforced for all administrative logins.
+*   **Disable Generic Accounts:** Rename or disable generic 'admin' accounts in favor of named individual accounts (e.g., `jsmith-admin`).
+*   **Adjust Lockout Policies:** Ensure an account lockout policy is active (e.g., 5-10 failed attempts triggers a 30-minute lockout).
+
+########################################
+Processing Alert ID: ALERT-002
+########################################
+
+=== PRE-AI ANALYSIS ===
+Calculated Severity: High
+MITRE Mapping: T1046 - Network Service Discovery
+Confidence: High Confidence Threat
+[ACTION] Recommend blocking source IP 10.0.0.88 and isolating affected host.
+[SIMULATION] Blocking source IP 10.0.0.88 and isolating affected host.
+
+[Timeline Reconstruction]
+- Initial Activity: Port scan detected
+- Source: 10.0.0.88
+- Target: Network services
+- Duration: 1 minute
+- Behavior: Enumeration of open ports indicating reconnaissance
+
+=======================
+
+As a SOC Analyst, I have reviewed the alert regarding the port scanning activity. Below is the technical analysis and recommended response plan.
+
+### **1. Summary**
+The security system detected a rapid succession of connection attempts (50 attempts within 60 seconds) originating from an internal host (**10.0.0.88**). This activity is characteristic of automated network reconnaissance, where an actor attempts to identify open ports and available services on the network to find potential vulnerabilities for exploitation or lateral movement.
+
+### **2. Severity: Medium (Adjusted from High)**
+I am adjusting the severity from **High** to **Medium**.
+*   **Why Medium?** While port scanning is a critical precursor to an attack, it is a reconnaissance activity (Phase 1) rather than an active exploit, data exfiltration, or ransomware deployment. 
+*   **When to escalate to High:** If the source IP (10.0.0.88) is confirmed to be an unauthorized device (e.g., a guest laptop or an unknown MAC address) or if the scan is immediately followed by successful logins or exploit attempts on the targeted ports.
+
+### **3. MITRE ATT&CK Mapping**
+*   **Primary Technique:** [T1046 - Network Service Discovery](https://attack.mitre.org/techniques/T1046/)
+*   **Secondary Technique:** [T1018 - Remote System Discovery](https://attack.mitre.org/techniques/T1018/) (if the scan was targeting multiple IPs to find live hosts).
+
+### **4. Why It’s Suspicious**
+*   **Internal Source:** The activity originates from an internal private IP. Standard workstations do not typically perform multi-port scans as part of normal business operations.
+*   **Speed/Volume:** 50 attempts in 60 seconds indicates an automated tool (e.g., Nmap, Advanced IP Scanner, or a malicious script) rather than human error or a single misconfigured application.
+*   **Reconnaissance Behavior:** This is a classic "noisy" indicator of an attacker or a compromised host attempting to map the internal attack surface for lateral movement.
+*   **Policy Violation:** Unless 10.0.0.88 is a designated Vulnerability Scanner (e.g., Nessus, Qualys), this activity violates standard security policies.
+
+### **5. Recommended Actions**
+
+#### **Immediate Containment**
+1.  **Isolate the Host:** Use EDR (Endpoint Detection and Response) or NAC (Network Access Control) to isolate host `10.0.0.88` from the rest of the network to prevent further scanning or lateral movement.
+2.  **Verify Host Identity:** Check DHCP/Active Directory logs to identify the hostname and the user currently logged into `10.0.0.88`.
+
+#### **Investigation**
+1.  **Check for Authorized Scanning:** Cross-reference the source IP with the list of authorized vulnerability scanners or IT management tools. Check if any scheduled maintenance was performing network discovery.
+2.  **EDR Review:** Inspect the processes running on `10.0.0.88` at the time of the alert. Look for tools like `nmap.exe`, `powershell.exe` (with suspicious arguments), or unknown executables.
+3.  **Analyze Targets:** Determine if the 50 attempts were against a single high-value target (Vertical Scan) or across multiple IP addresses (Horizontal Scan). This helps determine if the attacker is looking for a specific service or "living off the land."
+
+#### **Remediation & Follow-up**
+1.  **User Interview:** If the host belongs to an employee, interview them to determine if they installed unauthorized software or if they noticed unusual system behavior.
+2.  **Scan for Malware:** Perform a full AV/EDR scan on the source host to check for "hands-on-keyboard" activity or a botnet infection.
+3.  **Refine Alerting:** If this IP is a legitimate scanner, add it to the "Allow List" for this specific alert to reduce false positives in the future.
+
+########################################
+Processing Alert ID: ALERT-003
+########################################
+
+=== PRE-AI ANALYSIS ===
+Calculated Severity: Low
+MITRE Mapping: T1078 - Valid Accounts (possible account access attempt)
+Confidence: Moderate Confidence
+[ACTION] Recommend logging the event and continuing to monitor 172.16.0.12.
+[SIMULATION] Logging event from 172.16.0.12 for continued monitoring.
+
+[Timeline Reconstruction]
+- Initial Activity: Single failed login detected
+- Source: 172.16.0.12
+- Target: jsmith
+- Duration: 30 seconds
+- Behavior: Low-volume authentication failure, possibly benign or early-stage probing
+
+=======================
+
+As a SOC Analyst, here is my analysis of the alert based on the provided data.
+
+### **1. Summary**
+A single failed login attempt was recorded for the internal user account `jsmith` originating from the internal IP address `172.16.0.12`. The event occurred as an isolated instance within a 30-second window.
+
+### **2. Severity**
+**Confirmed: Low**
+*   **Rationale:** A single failed login is a common occurrence in any corporate environment, usually resulting from human error (typos), recently changed passwords not yet updated in cached credentials, or expired sessions. Without high frequency or multiple targeted accounts, this does not currently indicate an active compromise.
+
+### **3. MITRE ATT&CK Mapping**
+**Suggested Adjustment:** 
+*   **Primary:** [T1110.001 - Brute Force: Password Guessing](https://attack.mitre.org/techniques/T1110/001/)
+*   **Secondary:** [T1078 - Valid Accounts](https://attack.mitre.org/techniques/T1078/) (Only if the attempt is part of a larger pattern of testing stolen credentials).
+
+*Note: T1078 usually refers to the successful use of accounts. Since this failed, it is technically an attempt at password guessing or credential validation.*
+
+### **4. Why it is (potentially) Suspicious**
+While a single failed login is usually "noise," it can be suspicious if:
+*   **Source Misalignment:** If IP `172.16.0.12` is not the workstation typically assigned to `jsmith`.
+*   **Time of Day:** If the attempt occurred at an unusual hour (e.g., 3:00 AM) when the user is not active.
+*   **Criticality of Asset:** If the target of the login was a high-value asset (Domain Controller, SQL Database, or Financial System) rather than a standard workstation.
+*   **Low and Slow Pattern:** Some sophisticated attackers attempt only one login per hour/day to evade automated brute-force detection thresholds.
+
+### **5. Recommended Actions**
+
+**Immediate (Internal Triage):**
+1.  **Check for Success:** Look for a successful login from the same IP/User immediately following the failure. If a success followed within seconds, it was a typo.
+2.  **Verify Source IP:** Identify the device at `172.16.0.12`. Is it `jsmith`’s assigned laptop? If it is a server or a different user's machine, escalate the investigation.
+3.  **Historical Baseline:** Check if this user or IP has a history of failed logins over the last 24 hours.
+
+**If the activity persists or source is unknown:**
+1.  **Cross-Reference:** Look for "Horizontal Movement." Is the source IP (`172.16.0.12`) attempting to log into other accounts?
+2.  **User Outreach:** (Optional/Low Priority) Contact the user to ask if they experienced any login issues if the source IP seems unauthorized.
+3.  **Monitor:** Continue monitoring the source IP for any "Account Lockout" events (Event ID 4740), which would indicate a more aggressive attack.
+
+========================================
+SOC BATCH SUMMARY
+========================================
+Total Alerts Processed: 3
+
+Severity Breakdown:
+  High:   1
+  Medium: 1
+  Low:    1
+
+MITRE ATT&CK Breakdown:
+  T1110 - Brute Force: 1
+  T1046 - Network Service Discovery: 1
+  T1078 - Valid Accounts (possible account access attempt): 1
+
+Source IP Breakdown:
+  192.168.1.45: 1
+  10.0.0.88: 1
+  172.16.0.12: 1
+========================================
+
+Repeat Offender Check:
+  No repeat offender IPs detected.
+                                                                                                                                                           
+┌──(venv)─(kali㉿kali)-[~/mini-ai-soc]
+└─$ 
