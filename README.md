@@ -1,15 +1,13 @@
 <div align="center">
 
 ## 🛡️ AI-Assisted SOC Alert Analyzer  
-### SOC Triage, Correlation & AI-Assisted Investigation
+### SOC Triage • MITRE ATT&CK Mapping • Alert Investigation
 
 ![Category](https://img.shields.io/badge/Category-SOC%20Analysis-red?style=for-the-badge)
 ![Focus](https://img.shields.io/badge/Focus-Threat%20Detection-blue?style=for-the-badge)
 ![Tech](https://img.shields.io/badge/Tech-AI%20%2B%20MITRE-black?style=for-the-badge)
 
 </div>
-
----
 
 <div align="center">
   <img src="screenshots/soc_batch_summary.png" width="500">
@@ -19,58 +17,123 @@
 
 ---
 
-## 🧠 Scenario
+## ⚡ Quick Start (Run the Project)
+
+### 1. Open the project folder
+
+```bash
+cd ~/AI-Assisted-SOC-Alert-Analyzer-main
+```
+
+---
+
+### 2. Create and activate a virtual environment
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+---
+
+### 3. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+### 4. Run the analyzer
+
+```bash
+python soc_analyzer.py
+```
+
+---
+
+## 🧬 Project Evolution: Alert Analysis → Agentic Investigation
+
+This project represents the first stage in a progression of increasingly advanced SOC systems.
+
+---
+
+### 🔍 Phase 1 — SOC Alert Analyzer (This Project)
+
+- parses and analyzes security alerts  
+- performs structured triage  
+- maps activity to MITRE ATT&CK  
+- generates response recommendations  
+
+👉 Focus: **alert parsing and triage**
+
+---
+
+### 🛡️ Phase 2 — ATT&CK Mapping Engine  
+
+- improves mapping accuracy  
+- introduces hybrid scoring (TF-IDF + embeddings + rules)  
+- enhances explainability  
+
+👉 Focus: **classification and structured detection**
+
+---
+
+### 🤖 Phase 3 — Agentic SOC Investigation Engine  
+
+- correlates alerts across entities  
+- enriches context (IOC, vulnerability, asset)  
+- performs multi-step reasoning  
+- recommends actions  
+
+👉 Focus: **investigation and decision support**
+
+---
+
+## 👀 What This System Does
 
 This project simulates how a **Security Operations Center (SOC)** processes and investigates alerts.
 
-Instead of treating alerts as isolated events, this system demonstrates how analysts:
+Instead of treating alerts as isolated events, the system:
 
-- triage alerts using structured logic  
-- map activity to MITRE ATT&CK  
-- correlate multiple signals  
-- validate findings through investigation  
-- attempt AI-assisted enrichment  
+- triages alerts using structured logic  
+- maps activity to MITRE ATT&CK  
+- correlates multiple signals  
+- validates findings through investigation  
+- attempts AI-assisted enrichment  
+
+---
+
+## 🧠 Scenario
+
+SOC analysts face:
+
+- fragmented alerts  
+- limited context  
+- inconsistent prioritization  
+- manual investigation overhead  
+
+This system demonstrates how structured workflows improve:
+
+- consistency  
+- visibility  
+- decision-making  
 
 ---
 
 ## 🎯 Objective
 
-Build a workflow that reflects how SOC analysts move from:
+Simulate how SOC analysts move from:
 
-- raw alerts  
-→ structured triage  
-→ investigation  
-→ correlation  
-→ decision-making  
+```text
+Raw Alerts → Triage → Mapping → Correlation → Investigation → Decision
+```
 
 ---
 
-## 🚨 Detection Perspective (SOC View)
+## 👀 What the Analysis Looks Like in Practice
 
-From a SOC standpoint, the alerts represent:
-
-- brute force attempts  
-- reconnaissance / service discovery  
-- low-volume authentication anomalies  
-
-Each alert is evaluated for:
-
-- severity  
-- confidence  
-- MITRE ATT&CK mapping  
-- recommended response  
-
----
-
-## 🖥️ Environment
-
-| Tool | Purpose |
-|---|---|
-| Python | Alert processing engine |
-| Kali Linux | Testing environment |
-| Nmap | Investigation / validation |
-| MITRE ATT&CK | Technique mapping |
-| Google Gemini API | AI enrichment (attempted) |
+The following steps show how alerts are processed and analyzed within a SOC workflow.
 
 ---
 
@@ -80,7 +143,7 @@ Each alert is evaluated for:
   <img src="screenshots/alert_001_analysis.png" width="600">
 </div>
 
-<p align="center"><em>Figure 2. Example alert analysis showing severity scoring, MITRE mapping, and response recommendation.</em></p>
+<p align="center"><em>Alert analysis showing severity scoring, MITRE mapping, and response recommendation.</em></p>
 
 ### 🔍 Analysis Performed
 
@@ -98,13 +161,13 @@ Each alert is evaluated for:
   <img src="screenshots/alert_002_analysis.png" width="600">
 </div>
 
-<p align="center"><em>Figure 3. High-severity reconnaissance activity mapped to T1046.</em></p>
+<p align="center"><em>Reconnaissance activity mapped to T1046.</em></p>
 
 <div align="center">
   <img src="screenshots/alert_003_analysis.png" width="600">
 </div>
 
-<p align="center"><em>Figure 4. Low-severity authentication anomaly mapped to T1078.</em></p>
+<p align="center"><em>Authentication anomaly mapped to T1078.</em></p>
 
 ### 🧠 Observations
 
@@ -120,7 +183,7 @@ Each alert is evaluated for:
   <img src="screenshots/soc_batch_summary.png" width="500">
 </div>
 
-<p align="center"><em>Figure 5. Aggregated SOC view showing severity distribution and MITRE coverage.</em></p>
+<p align="center"><em>Aggregated SOC view showing severity distribution and MITRE coverage.</em></p>
 
 ### 📊 Output Includes
 
@@ -140,7 +203,7 @@ Each alert is evaluated for:
   <img src="screenshots/nmap_scan.png" width="600">
 </div>
 
-<p align="center"><em>Figure 6. Nmap scan validating exposed service.</em></p>
+<p align="center"><em>Nmap scan validating exposed service.</em></p>
 
 ### 🔎 Findings
 
@@ -157,64 +220,34 @@ Each alert is evaluated for:
   <img src="screenshots/soc_analyzer_output.png" width="600">
 </div>
 
-<p align="center"><em>Figure 7. AI model failure due to quota limits.</em></p>
+<p align="center"><em>AI enrichment attempt demonstrating fallback to rule-based logic.</em></p>
 
-### 🧠 Analysis
+### 🧠 Insight
 
-- rule-based logic still succeeded  
-- AI is enrichment, not dependency  
-
----
-
-## 🔧 Step 6 — Development & Troubleshooting
-
-### Environment Setup
-
-<div align="center">
-  <img src="screenshots/development_workflow.png" width="600">
-</div>
-
-<p align="center"><em>Figure 8. Virtual environment and dependency installation.</em></p>
+- rule-based logic remains reliable  
+- AI enhances analysis but is not required  
 
 ---
 
-### Execution Validation
+## 🔍 SOC Analysis Workflow
 
-<div align="center">
-  <img src="screenshots/ai_analysis_output.png" width="600">
-</div>
-
-<p align="center"><em>Figure 9. File validation and script setup.</em></p>
-
----
-
-### Debugging Example
-
-<div align="center">
-  <img src="screenshots/debugging_example.png" width="600">
-</div>
-
-<p align="center"><em>Figure 10. Execution error due to incorrect filename.</em></p>
-
----
-
-## 🧠 Attack Flow (SOC Perspective)
-
-    Alert Generation
+```text
+Alert Generation
     ↓
-    Rule-Based Triage
+Rule-Based Triage
     ↓
-    MITRE Mapping
+MITRE Mapping
     ↓
-    Response Recommendation
+Response Recommendation
     ↓
-    Multi-Alert Correlation
+Multi-Alert Correlation
     ↓
-    Investigation (Nmap)
+Investigation (Nmap)
     ↓
-    AI Enrichment (attempted)
+AI Enrichment (Optional)
     ↓
-    SOC Summary
+SOC Summary
+```
 
 ---
 
@@ -242,7 +275,7 @@ Each alert is evaluated for:
 
 ### Monitoring
 - track login attempts  
-- detect recon behavior  
+- detect reconnaissance behavior  
 
 ---
 
@@ -268,13 +301,8 @@ Each alert is evaluated for:
 
 <div align="center">
 
-## 👤 Shannon Smith
+## 👤 Shannon Smith  
 
 Cybersecurity | Threat Detection • Incident Response • Security Operations  
-U.S. Navy Veteran | Virginia Tech — M.S. Information Technology  
-
-🧠 Structured analysis  
-🔍 Investigation-driven validation  
-🛡️ Real-world SOC workflow simulation  
 
 </div>
