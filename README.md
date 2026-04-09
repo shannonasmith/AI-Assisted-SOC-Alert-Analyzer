@@ -1,28 +1,104 @@
 <div align="center">
 
-## 🛡️ AI-Assisted SOC Alert Analyzer  
-### SOC Triage • MITRE ATT&CK Mapping • Alert Investigation
+# 🛡️ SOC Alert Analyzer  
 
-![Category](https://img.shields.io/badge/Category-SOC%20Analysis-red?style=for-the-badge)
-![Focus](https://img.shields.io/badge/Focus-Threat%20Detection-blue?style=for-the-badge)
-![Tech](https://img.shields.io/badge/Tech-AI%20%2B%20MITRE-black?style=for-the-badge)
+## 🧠 SOC Systems • Detection Engineering • Agentic Investigation
+
+![Focus](https://img.shields.io/badge/Focus-SOC%20Analysis%20%7C%20Triage%20%7C%20Mapping-blue?style=for-the-badge)
+![Approach](https://img.shields.io/badge/Approach-Alert%20→%20Triage%20→%20Mapping-success?style=for-the-badge)
+![Tech](https://img.shields.io/badge/Tech-Python%20%7C%20MITRE%20ATT%26CK%20%7C%20SOC-black?style=for-the-badge)
 
 </div>
 
 <div align="center">
-  <img src="screenshots/soc_batch_summary.png" width="500">
+  <img src="screenshots/soc_batch_summary.png" width="900">
 </div>
 
-<p align="center"><em>Figure 1. SOC batch summary showing alert distribution, MITRE mapping, and source correlation.</em></p>
+<p align="center"><em>SOC batch summary showing alert distribution, MITRE mapping, and correlation.</em></p>
+
+---
+
+## 🧠 Purpose
+
+This project represents the **alert analysis and triage stage** of an evolving SOC system.
+
+| Stage | Description |
+|------|------------|
+| Alert Analysis | Understanding and triaging security events |
+| Detection Engineering | Mapping behavior to MITRE ATT&CK |
+| Investigation | Correlating and enriching alerts |
+| Decision Support | Recommending response actions |
+
+---
+
+## 🎯 Objective
+
+The goal of this phase is to demonstrate:
+
+- how alerts are parsed and analyzed  
+- how severity and confidence are assigned  
+- how activity maps to MITRE ATT&CK  
+- how correlation improves context  
+- how structured triage supports downstream detection and investigation  
+
+---
+
+## 🔍 Phase 1 — SOC Alert Analyzer
+
+![Focus](https://img.shields.io/badge/Focus-Triage%20%7C%20Analysis-blue)
+
+| Category | Details |
+|---------|--------|
+| Focus | Alert parsing and triage |
+| Role | SOC analyst simulation |
+| Output | Structured alert analysis |
+
+---
+
+## 🧩 Key Capabilities
+
+- alert parsing  
+- severity scoring  
+- MITRE ATT&CK mapping  
+- response recommendations  
+- multi-alert correlation  
+- investigation validation  
+- optional AI enrichment  
+
+---
+
+## 📈 Capability Progression
+
+```text
+Alert Parsing → Classification → Investigation → Decision
+```
+
+---
+
+## 🧠 SOC Triage Workflow
+
+| Stage | Description |
+|------|------------|
+| 🟦 Raw Alert | Alert ingestion from SIEM |
+| 🟨 Triage | Severity and confidence scoring |
+| 🧠 MITRE Mapping | Technique identification |
+| ⚙️ Response Recommendation | Suggested actions |
+| 📊 Correlation | Multi-alert context |
+| 🔎 Investigation | Validation (e.g., Nmap) |
+| 🤖 AI Enrichment | Optional enhancement |
+| 📈 SOC Summary | Aggregated visibility |
 
 ---
 
 ## ⚡ Quick Start (Run the Project)
 
-### 1. Open the project folder
+Run the SOC alert analyzer locally.
+
+### 1. Clone the repository
 
 ```bash
-cd ~/AI-Assisted-SOC-Alert-Analyzer-main
+git clone https://github.com/shannonasmith/AI-Assisted-SOC-Alert-Analyzer.git
+cd AI-Assisted-SOC-Alert-Analyzer
 ```
 
 ---
@@ -52,98 +128,17 @@ python soc_analyzer.py
 
 ---
 
-## 🧬 Project Evolution: Alert Analysis → Agentic Investigation
+## 👀 What This Looks Like in Practice
 
-This project represents the first stage in a progression of increasingly advanced SOC systems.
-
----
-
-### 🔍 Phase 1 — SOC Alert Analyzer (This Project)
-
-- parses and analyzes security alerts  
-- performs structured triage  
-- maps activity to MITRE ATT&CK  
-- generates response recommendations  
-
-👉 Focus: **alert parsing and triage**
+This walkthrough demonstrates how alerts are transformed into structured SOC analysis through triage, mapping, and investigation.
 
 ---
 
-### 🛡️ Phase 2 — ATT&CK Mapping Engine  
-
-- improves mapping accuracy  
-- introduces hybrid scoring (TF-IDF + embeddings + rules)  
-- enhances explainability  
-
-👉 Focus: **classification and structured detection**
-
----
-
-### 🤖 Phase 3 — Agentic SOC Investigation Engine  
-
-- correlates alerts across entities  
-- enriches context (IOC, vulnerability, asset)  
-- performs multi-step reasoning  
-- recommends actions  
-
-👉 Focus: **investigation and decision support**
-
----
-
-## 👀 What This System Does
-
-This project simulates how a **Security Operations Center (SOC)** processes and investigates alerts.
-
-Instead of treating alerts as isolated events, the system:
-
-- triages alerts using structured logic  
-- maps activity to MITRE ATT&CK  
-- correlates multiple signals  
-- validates findings through investigation  
-- attempts AI-assisted enrichment  
-
----
-
-## 🧠 Scenario
-
-SOC analysts face:
-
-- fragmented alerts  
-- limited context  
-- inconsistent prioritization  
-- manual investigation overhead  
-
-This system demonstrates how structured workflows improve:
-
-- consistency  
-- visibility  
-- decision-making  
-
----
-
-## 🎯 Objective
-
-Simulate how SOC analysts move from:
-
-```text
-Raw Alerts → Triage → Mapping → Correlation → Investigation → Decision
-```
-
----
-
-## 👀 What the Analysis Looks Like in Practice
-
-The following steps show how alerts are processed and analyzed within a SOC workflow.
-
----
-
-## ⚙️ Step 1 — Alert Processing & Triage
+### ⚙️ Step 1 — Alert Processing & Triage
 
 <div align="center">
-  <img src="screenshots/alert_001_analysis.png" width="600">
+  <img src="screenshots/alert_001_analysis.png" width="700">
 </div>
-
-<p align="center"><em>Alert analysis showing severity scoring, MITRE mapping, and response recommendation.</em></p>
 
 ### 🔍 Analysis Performed
 
@@ -155,19 +150,15 @@ The following steps show how alerts are processed and analyzed within a SOC work
 
 ---
 
-## 🧪 Step 2 — Multi-Alert Analysis
+### 🧪 Step 2 — Multi-Alert Analysis
 
 <div align="center">
-  <img src="screenshots/alert_002_analysis.png" width="600">
+  <img src="screenshots/alert_002_analysis.png" width="700">
 </div>
-
-<p align="center"><em>Reconnaissance activity mapped to T1046.</em></p>
 
 <div align="center">
-  <img src="screenshots/alert_003_analysis.png" width="600">
+  <img src="screenshots/alert_003_analysis.png" width="700">
 </div>
-
-<p align="center"><em>Authentication anomaly mapped to T1078.</em></p>
 
 ### 🧠 Observations
 
@@ -177,13 +168,11 @@ The following steps show how alerts are processed and analyzed within a SOC work
 
 ---
 
-## 📈 Step 3 — SOC Correlation & Summary
+### 📈 Step 3 — SOC Correlation & Summary
 
 <div align="center">
-  <img src="screenshots/soc_batch_summary.png" width="500">
+  <img src="screenshots/soc_batch_summary.png" width="700">
 </div>
-
-<p align="center"><em>Aggregated SOC view showing severity distribution and MITRE coverage.</em></p>
 
 ### 📊 Output Includes
 
@@ -193,34 +182,26 @@ The following steps show how alerts are processed and analyzed within a SOC work
 - source IP correlation  
 - repeat offender detection  
 
-➡️ Alert-level → **situational awareness**
-
 ---
 
-## 🔍 Step 4 — Investigation & Validation
+### 🔍 Step 4 — Investigation & Validation
 
 <div align="center">
-  <img src="screenshots/nmap_scan.png" width="600">
+  <img src="screenshots/nmap_scan.png" width="700">
 </div>
-
-<p align="center"><em>Nmap scan validating exposed service.</em></p>
 
 ### 🔎 Findings
 
 - host active  
 - port 53 open (DNS)  
 
-➡️ Confirms reconnaissance behavior  
-
 ---
 
-## 🤖 Step 5 — AI Enrichment Attempt
+### 🤖 Step 5 — AI Enrichment Attempt
 
 <div align="center">
-  <img src="screenshots/soc_analyzer_output.png" width="600">
+  <img src="screenshots/soc_analyzer_output.png" width="700">
 </div>
-
-<p align="center"><em>AI enrichment attempt demonstrating fallback to rule-based logic.</em></p>
 
 ### 🧠 Insight
 
@@ -242,7 +223,7 @@ Response Recommendation
     ↓
 Multi-Alert Correlation
     ↓
-Investigation (Nmap)
+Investigation
     ↓
 AI Enrichment (Optional)
     ↓
@@ -251,51 +232,41 @@ SOC Summary
 
 ---
 
-## 🛠️ Techniques Demonstrated
+## 💡 What This Project Demonstrates
 
-- brute force detection (T1110)  
-- network discovery detection (T1046)  
-- account-based monitoring (T1078)  
-- alert correlation  
-- investigation validation  
-- AI-assisted analysis  
-
----
-
-## 🛡️ Response (SOC Perspective)
-
-### Containment
-- monitor suspicious IPs  
-- isolate systems  
-- block sources  
-
-### Investigation
-- validate services  
-- analyze authentication  
-
-### Monitoring
-- track login attempts  
-- detect reconnaissance behavior  
-
----
-
-## 📊 Key Takeaways
-
-- structured triage enables consistency  
-- correlation improves visibility  
-- investigation validates alerts  
-- AI enhances analysis, not replaces it  
-
----
-
-## 💡 Skills Demonstrated
-
-- SOC alert triage  
+- SOC alert triage workflows  
 - MITRE ATT&CK mapping  
-- threat analysis  
-- investigation techniques  
-- troubleshooting  
-- AI-assisted workflows  
+- correlation and investigation  
+- structured analysis pipelines  
+- AI-assisted enrichment  
+
+---
+
+## 💼 SOC Relevance
+
+Simulates:
+
+- Tier 1 SOC triage  
+- alert prioritization  
+- initial investigation workflows  
+- analyst decision-making  
+
+---
+
+## 🧬 Project Progression
+
+This project is part of a **multi-phase SOC system**:
+
+**SOC Alert Analyzer (current)** → [ATT&CK Mapping Engine](https://github.com/shannonasmith/AI-Assisted-SOC-MITRE-ATTACK-Mapping-Engine) → [Agentic SOC Investigation Engine](https://github.com/shannonasmith/Agentic-SOC-Investigation-Engine)
+
+---
+
+## 🚧 Future Work
+
+- integration with detection engine (Phase 2)  
+- improved correlation logic  
+- expanded enrichment  
+- structured output standardization  
 
 ---
 
